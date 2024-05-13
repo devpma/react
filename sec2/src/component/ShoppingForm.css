@@ -1,0 +1,22 @@
+
+h1 {
+    font-size:1.7rem;
+    font-weight:bold;
+    height:100%;
+}
+
+.form-control {
+    background: #f0f0f0;
+    width: 50%;
+    display: inline-flex;
+    line-height: 35px;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+}
+.form-control input {
+    border: 1px solid #eee;
+    height: 30px;
+    width: calc(100% - 200px);
+    margin-left: 1rem;
+    margin-right: .5rem;
+}

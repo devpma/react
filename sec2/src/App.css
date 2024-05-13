@@ -1,0 +1,15 @@
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100vw;
+}
+#root {
+    width: 90%;
+    max-width: 1920px;
+}
+
+.App {
+    width:100%;
+}
