@@ -1,0 +1,19 @@
+import { useEffect } from "react";
+
+export default function useOneClickOutside(ref, handler) {
+    useEffect(() => {
+        const listener = (event) => {
+            // 모달 바깥을 클릭했는지 확인
+            if (!ref.current || ref.current.contains(event.target)) {
+                return;
+            }
+            handler(event);
+        };
+
+        document.addEventListener('mousedown', listener); // `mousedown` 이벤트로 변경
+
+        return () => {
+            document.removeEventListener('mousedown', listener);
+        };
+    }, [ref, handler]);
+}
