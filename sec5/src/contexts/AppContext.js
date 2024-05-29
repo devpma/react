@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 
 export const AppContext = createContext();
 
@@ -7,10 +7,11 @@ export const AppReducer = (state, action) => {
     case "ADD_EXPENSE":
       return {
         ...state,
-        expenses: [...state.expenses, action.payload], //하나만 추가 action.payload에 들어있음 (얕은복사진행)
+        expenses: [...state.expenses, action.payload],
       };
     case "DELETE_EXPENSE":
       return {
+        ...state,
         expenses: state.expenses.filter(
           (expense) => expense.id !== action.payload
         ),
@@ -20,9 +21,18 @@ export const AppReducer = (state, action) => {
         ...state,
         budget: action.payload,
       };
-
+    case "ADD_INCOME": // 수입 추가 액션 추가
+      return {
+        ...state,
+        income: [...state.income, action.payload],
+      };
+    case "DELETE_INCOME": // 수입 삭제 액션 추가
+      return {
+        ...state,
+        income: state.income.filter((income) => income.id !== action.payload),
+      };
     default:
-      break;
+      return state;
   }
 };
 
@@ -31,16 +41,23 @@ const initialState = {
   expenses: [
     { id: crypto.randomUUID(), name: "밥먹기", cost: 1000 },
     { id: crypto.randomUUID(), name: "카드비", cost: 3000 },
-    { id: crypto.randomUUID(), name: "교통비", cost: 2000 },
+    { id: crypto.randomUUID(), name: "교통비", cost: 7000 },
+  ],
+  income: [
+    // 초기 수입 상태 추가
+    { id: crypto.randomUUID(), name: "월급", amount: 50000 },
+    { id: crypto.randomUUID(), name: "용돈", amount: 20000 },
   ],
 };
 
 export const AppContextProvider = (props) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
+
   return (
     <AppContext.Provider
       value={{
         expenses: state.expenses,
+        income: state.income,
         budget: state.budget,
         dispatch,
       }}
